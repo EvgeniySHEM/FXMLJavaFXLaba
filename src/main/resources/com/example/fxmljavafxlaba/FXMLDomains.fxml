@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="AnchorPane"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fxmljavafxlaba.FXMLDomainsController"
+            prefHeight="400.0" prefWidth="950.0"
+            styleClass="root">
+    <children>
+        <TableView fx:id="table"
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="id" prefWidth="50" text="ID"/>
+                <TableColumn fx:id="webName" prefWidth="150" text="WEB NAME"/>
+                <TableColumn fx:id="domainName" prefWidth="150" text="DOMAIN NAME"/>
+                <TableColumn fx:id="ip" prefWidth="150" text="IP"/>
+                <TableColumn fx:id="dateReg" prefWidth="200" text="DATE REGISTRATION"/>
+                <TableColumn fx:id="countryReg" prefWidth="150" text="COUNTRY REGISTRATION"/>
+                <TableColumn fx:id="personId" prefWidth="100" text="PERSON ID"/>
+            </columns>
+        </TableView>
+        <Button fx:id="button" text="Изменить CSS"
+                AnchorPane.bottomAnchor="25" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="300"
+                onMouseClicked="#handleStyleСhanges" onKeyPressed="#handleKeyPressedAction"/>
+    </children>
+</AnchorPane>
