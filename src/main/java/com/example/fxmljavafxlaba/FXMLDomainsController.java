@@ -16,7 +16,15 @@ import java.util.ResourceBundle;
 public class FXMLDomainsController implements Initializable {
     @FXML
     private TableView<Domain> table;
-    private boolean flag = true;
+    private final String STYLE1;
+    private final String STYLE2;
+
+    {
+        STYLE1 = Objects.requireNonNull(getClass().getResource("Domain.css"),
+                "Domain.css must not be null").toExternalForm();
+        STYLE2 = Objects.requireNonNull(getClass().getResource("Domain2.css"),
+                "Domain2.css must not be null").toExternalForm();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,34 +41,26 @@ public class FXMLDomainsController implements Initializable {
         ObservableList<Domain> list =
                 FXCollections.observableArrayList(new Server().getDomainByPersonId(person.getId()));
         table.setItems(list);
-        table.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Domain.css")).toExternalForm());
+        table.getStylesheets().add(STYLE1);
     }
 
     @FXML
     public void handleStyleСhanges(MouseEvent mouseEvent) {
         if(mouseEvent.getClickCount()==1) {
-            styleChenge();
+            styleChange();
         }
     }
 
     @FXML
     public void handleKeyPressedAction(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.ENTER) {
-            styleChenge();
+            styleChange();
         }
     }
 
-    private void styleChenge() {
-        if(flag) {
-            table.getStylesheets().clear();
-            String style = Objects.requireNonNull(getClass().getResource("Domain2.css")).toExternalForm();
-            table.getStylesheets().add(style);
-            flag = false;
-        } else {
-            table.getStylesheets().clear();
-            String style = Objects.requireNonNull(getClass().getResource("Domain.css")).toExternalForm();
-            table.getStylesheets().add(style);
-            flag = true;
-        }
+    private void styleChange() {
+        String style = table.getStylesheets().contains(STYLE1) ? STYLE2 : STYLE1;
+        table.getStylesheets().clear();
+        table.getStylesheets().add(style);
     }
 }

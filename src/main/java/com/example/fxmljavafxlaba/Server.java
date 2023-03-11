@@ -20,8 +20,6 @@ public class Server {
     private final String URL;
     private final String USERNAME;
     private final String PASSWORD;
-    private String login;
-    private String password;
 
     public Server() {
         Properties properties = new Properties();
@@ -38,10 +36,7 @@ public class Server {
     }
 
     public boolean signIn(TextField userNameField, PasswordField passwordField) {
-        login = userNameField.getText();
-        password = passwordField.getText();
-
-        if (readUsers()) {
+        if (readUsers(userNameField, passwordField)) {
             new PersonDTOStage().init();
             return true;
         } else {
@@ -62,12 +57,12 @@ public class Server {
         }
     }
 
-    private boolean readUsers() {
+    private boolean readUsers(TextField userNameField, PasswordField passwordField) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT NAME, PASSWORD FROM USERS")) {
-            resultSet.next();
-            if (resultSet.getString(1).equals(login) && resultSet.getString(2).equals(password))
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS WHERE NAME='" +
+                     userNameField.getText() + "' AND PASSWORD='" + passwordField.getText() + "'")) {
+            if (resultSet.next())
                 return true;
 
         } catch (SQLException ex) {
